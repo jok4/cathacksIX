@@ -1,0 +1,34 @@
+/* (A) WHOLE PAGE */
+* {
+  font-family: arial, sans-serif;
+  box-sizing: border-box;
+}
+
+/* (B) TIMETABLE WRAPPER */
+.timetable {
+  display: grid;
+  position: relative;
+}
+
+/* (C) BLANK & HEADER CELLS */
+.cell {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #af8888;
+}
+.head {
+  font-weight: 700;
+  justify-content: center;
+  color: #333;
+  background: #f9f9f9;
+}
+
+/* (D) ENTRY CELLS */
+.entry {
+  position: absolute;
+  right: 0; left: 0; top: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

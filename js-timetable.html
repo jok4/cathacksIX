@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Time Table With CSS Grid</title>
+
+    <!-- (A) LOAD CSS & JS -->
+    <link rel="stylesheet" href="js-timetable.css">
+    <script src="js-timetable.js"></script>
+  </head>
+  <body>
+    <!-- (B) GENERATE TIMETABLE HERE -->
+    <div id="demo"></div>
+
+    <!-- (C) ATTACH TIMETABLE -->
+    <script>
+    timetable({
+      // (C1) REQUIRED
+      target: document.getElementById("demo"),
+      x: ["Morning", "Afternoon", "Night"],
+      y: ["Mon", "Tue", "Wed", "Thur", "Fri"],
+      data: [
+        {
+          txt: "Ranodm stuff 1",
+          row: "2", col: "2/3",
+          color: "white", bg: "black",
+          click : () => { alert("Clicked!"); }
+        },
+        {
+          txt: "Ranodm stuff 2",
+          row: "4", col: "3/4",
+          color: "#04ff00", bg: "#090099"
+        },
+        {
+          txt: "Ranodm stuff 3",
+          row: "6", col: "3",
+          color: "#fff", bg: "#aa18ad"
+        }
+      ],
+
+      // (C2) OPTIONAL
+      gridX: "100px repeat(3, 1fr)",
+      gridY : "50px"
+    });
+    </script>
+  </body>
+</html>
