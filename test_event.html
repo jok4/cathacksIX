@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GPT API Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+</head>
+  <body>
+    <div id="event-details"></div>
+    <div id="calendar-link"></div>
+
+    <script>
+      const API_ENDPOINT = "https://api.openai.com/v1/engines/davinci-codex/completions";
+      const API_KEY = "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";
+
+      const prompt = `generate google calendar event with the following details: 
+      title: "Meeting with John"
+      start time: "3pm"
+      end time: "4pm"
+      location: "Zoom Meeting"
+      description: "Discuss Project Progress"
+      `;
+
+      axios
+        .post(
+          API_ENDPOINT,
+          {
+            prompt: prompt,
+            max_tokens: 100,
+            n: 1,
+            stop: "endoftext",
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${API_KEY}`,
+            },
+          }
+        )
+        .then((response) => {
+          const data = response.data.choices[0].text;
+
+          // Extract details from GPT output
+          const title = data.match(/Title: (.*)/)[1];
+          const startTime = data.match(/Start Time: (.*)/)[1];
+          const endTime = data.match(/End Time: (.*)/)[1];
+          const location = data.match(/Location: (.*)/)[1];
+          const description = data.match(/Description: (.*)/)[1];
+
+          // Create Google Calendar link
+          const start = new Date(`2022-04-15T${startTime}`);
+          const end = new Date(`2022-04-15T${endTime}`);
+          const href = encodeURI(
+            `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start.toISOString()}/${end.toISOString()}&details=${description}&location=${location}`
+          );
+
+          // Render event details and calendar link to HTML
+          document.getElementById(
+            "event-details"
+          ).innerHTML = `<p><b>Title:</b> ${title}</p><p><b>Start Time:</b> ${startTime}</p><p><b>End Time:</b> ${endTime}</p><p><b>Location:</b> ${location}</p><p><b>Description:</b> ${description}</p>`;
+          document.getElementById(
+            "calendar-link"
+          ).innerHTML = `<a href="${href}" target="_blank">Add to Google Calendar</a>`;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    </script>
+  </body>
+</html>

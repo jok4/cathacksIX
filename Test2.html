@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <title>Generate Google Calendar Event Link</title>
+</head>
+<body>
+    <h1>Generate Google Calendar Event Link</h1>
+
+    <form>
+        <label for="title">Event Title:</label>
+        <input type="text" id="title" name="title"><br>
+
+        <label for="start">Start Time:</label>
+        <input type="datetime-local" id="start" name="start"><br>
+
+        <label for="end">End Time:</label>
+        <input type="datetime-local" id="end" name="end"><br>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location"><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea><br>
+
+        <button type="button" onclick="generateLink()">Generate Link</button>
+    </form>
+
+    <div id="link"></div>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        function generateLink() {
+            gapi.load('client', function() {
+                gapi.client.init({
+                    apiKey: 'AIzaSyA3bdBUvnFn8_fg-G_72hjd-cF94pjh1d4'
+                }).then(function() {
+                    const title = document.getElementById('title').value;
+                    const start = new Date(document.getElementById('start').value).toISOString();
+                    const end = new Date(document.getElementById('end').value).toISOString();
+                    const location = document.getElementById('location').value;
+                    const description = document.getElementById('description').value;
+
+                    const href = encodeURI(
+                        `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${description}&location=${location}`
+                    );
+
+                    document.getElementById('link').innerHTML = `<a href="${href}" target="_blank">Add to Google Calendar</a>`;
+                });
+            });
+        }
+    </script>
+</body>
+</html>
