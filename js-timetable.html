@@ -10,11 +10,18 @@
   <body>
     <!-- (B) GENERATE TIMETABLE HERE -->
     <div id="demo"></div>
+      <!-- Make text box to collect user input-->
+      <form id="openai-input">
+          <label for="input-text">What is the task you would like to divide?</label>
+          <input type="text" id="input-text" name="input-text" /><br /><br />
+          <button type="submit">Submit</button>
+      </form>
+
+      <!--Send input to openai API-->
 
     <!-- (C) ATTACH TIMETABLE -->
     <script>
     timetable({
-      // (C1) REQUIRED
       target: document.getElementById("demo"),
       x: ["Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday", "Sunday"],
       y: ["6a", "7a", "8a", "9a", "10a", "11a", "12a", "1p", "2p", "3p", "4p", "5p", "6p", "7p", "8p", "10p"],
@@ -40,6 +47,8 @@
       // (C2) OPTIONAL
       gridX: "100px repeat(3, 1fr)",
       gridY : "50px"
+
+
     });
     </script>
   </body>
